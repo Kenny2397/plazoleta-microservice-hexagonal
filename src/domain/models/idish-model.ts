@@ -10,7 +10,7 @@ export interface DishProps {
   createdAt?: Date
 }
 
-export class Dish {
+export class DishModel {
   public readonly id?: number
   public readonly name: string
   public readonly description: string

@@ -1,18 +1,22 @@
-import { CategoryRepository } from '../../domain/repositories/category-repository'
-import { Category } from '../../domain/models/category'
+import { ICategoryRepository } from '../../domain/repositories/icategory-repository'
+import { CategoryModel } from './../../domain/models/icategory-model'
 import { ICategoryDTO } from '../dtos/category-dto'
 
-class CategoryService {
-  private readonly categoryRepository: CategoryRepository
+export class CategoryService {
+  private readonly categoryRepository: ICategoryRepository
 
-  constructor (categoryRepository: CategoryRepository) {
+  constructor (categoryRepository: ICategoryRepository) {
     this.categoryRepository = categoryRepository
   }
 
-  async createCategory (categoryDto: ICategoryDTO): Promise<Category> {
-    const createdCategory = await this.categoryRepository.create(categoryDto)
+  async createCategoryService (categoryDto: ICategoryDTO): Promise<CategoryModel> {
+    console.log('service')
+    const createdCategory = await this.categoryRepository.save(categoryDto)
     return createdCategory
   }
-}
 
-export default CategoryService
+  async getCategoryById (id: number): Promise<CategoryModel | null> {
+    const category = await this.categoryRepository.findById(id)
+    return category
+  }
+}

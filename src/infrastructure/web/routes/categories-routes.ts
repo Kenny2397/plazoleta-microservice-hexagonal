@@ -1,16 +1,8 @@
 import { Router } from 'express'
-import CategoriesController from './../controllers/categories-controller'
-import CategoriesService from '../../../application/services/categories-service'
-import { CategoriesRepository } from '../../../domain/repositories/categories-repository'
-import CategoriesRepositoryImpl from '../../database/repositories/sequelize-categories-repository'
 
+import { categoryController } from './../dependencies/container'
 // import { checkRoles } from '../../middlewares/auth-handler'
 // import { roles } from '../../../shared/constants/roles'
-
-const categoriesRepository: CategoriesRepository = new CategoriesRepositoryImpl()
-const categoriesService: CategoriesService = new CategoriesService(categoriesRepository)
-
-const categoriesController: CategoriesController = new CategoriesController(categoriesService)
 const router = Router()
 
 /**
@@ -53,6 +45,6 @@ const router = Router()
  *      security:
  *        - bearerAuth: []
  */
-router.post('', categoriesController.create.bind(categoriesController))
+router.post('/', categoryController.createCategory.bind(categoryController))
 
 export default router

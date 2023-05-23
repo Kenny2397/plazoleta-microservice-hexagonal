@@ -1,8 +1,8 @@
 import { Restaurant } from './../models/restaurant-model'
 import { RestaurantModel } from '../../../domain/models/irestaurant-model'
-import { IRestaurantRepository } from '../../../domain/repositories/restaurant-repository'
+import { IRestaurantRepository } from '../../../domain/repositories/irestaurant-repository'
 
-class SequelizeRestaurantRepository implements IRestaurantRepository {
+export class SequelizeRestaurantRepository implements IRestaurantRepository {
   public async save (payload: RestaurantModel): Promise<RestaurantModel> {
     return await Restaurant.create(payload)
   }
@@ -27,5 +27,3 @@ class SequelizeRestaurantRepository implements IRestaurantRepository {
     await Restaurant.destroy({ where: { id } })
   }
 }
-
-export default SequelizeRestaurantRepository

@@ -5,7 +5,7 @@ export interface CategoryProps {
   createdAt?: Date
 }
 
-export class Category {
+export class CategoryModel {
   public readonly id?: number
   public readonly name: string
   public readonly description: string

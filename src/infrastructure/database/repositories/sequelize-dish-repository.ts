@@ -1,18 +1,18 @@
-import Dish from '../models/dish-model'
+import { Dish } from '../models/dish-model'
 import { IDishDTO } from '../../../application/dtos/dish-dto'
-import { Dish as DishDomain } from '../../../domain/models/dish'
-import { DishRepository } from '../../../domain/repositories/dish-repository'
+import { DishModel } from '../../../domain/models/idish-model'
+import { IDishRepository } from '../../../domain/repositories/idish-repository'
 
-class SequelizeDishRepository implements DishRepository {
-  public async create (payload: DishDomain): Promise<DishDomain> {
+export class SequelizeDishRepository implements IDishRepository {
+  public async create (payload: DishModel): Promise<DishModel> {
     return await Dish.create(payload)
   }
 
-  public async findAll (): Promise<DishDomain[]> {
+  public async findAll (): Promise<DishModel[]> {
     return await Dish.findAll()
   }
 
-  public async findById (id: number): Promise<DishDomain | null> {
+  public async findById (id: number): Promise<DishModel | null> {
     return await Dish.findByPk(id)
   }
 
@@ -24,5 +24,3 @@ class SequelizeDishRepository implements DishRepository {
     await Dish.destroy({ where: { id } })
   }
 }
-
-export default SequelizeDishRepository

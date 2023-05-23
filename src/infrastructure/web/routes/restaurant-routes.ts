@@ -1,19 +1,13 @@
 import { Router } from 'express'
-import { RestaurantController } from './../controllers/restaurant-controller'
-import { RestaurantService } from '../../../application/services/restaurant-service'
-import { IRestaurantRepository } from '../../../domain/repositories/restaurant-repository'
-import RestaurantRepositoryImpl from '../../database/repositories/sequelize-restaurant-repository'
 import passport from './../../authentication/index.ts'
-// import validatorHandler from '../../middlewares/validator-handler'
-// import { createRestaurantSchema } from './../schemas/restaurant-schema'
 import { checkRoles } from '../../middlewares/auth-handler'
 import { ROLES } from '../utils/shared/role-constants'
 
-const restaurantRepository: IRestaurantRepository = new RestaurantRepositoryImpl()
-const restaurantService: RestaurantService = new RestaurantService(restaurantRepository)
-
-const restaurantController: RestaurantController = new RestaurantController(restaurantService)
+import { restaurantController } from './../dependencies/container'
 const router = Router()
+
+// import validatorHandler from '../../middlewares/validator-handler'
+// import { createRestaurantSchema } from './../schemas/restaurant-schema'
 
 /**
  * @openapi

@@ -1,16 +1,10 @@
 import { Router } from 'express'
-import DishController from './../controllers/dish-controller'
-import DishService from '../../../application/services/dish-service'
-import { DishRepository } from '../../../domain/repositories/dish-repository'
-import DishRepositoryImpl from '../../database/repositories/sequelize-dish-repository'
+import passport from './../../authentication/index.ts'
 
-// import { checkRoles } from '../../middlewares/auth-handler'
-// import { roles } from '../../../shared/constants/roles'
+import { checkRoles } from '../../middlewares/auth-handler'
+import { ROLES } from '../utils/shared/role-constants'
+import { dishController } from '../dependencies/container'
 
-const dishRepository: DishRepository = new DishRepositoryImpl()
-const dishService: DishService = new DishService(dishRepository)
-
-const dishController: DishController = new DishController(dishService)
 const router = Router()
 
 /**
@@ -53,6 +47,6 @@ const router = Router()
  *      security:
  *        - bearerAuth: []
  */
-router.post('', dishController.create.bind(dishController))
+router.post('/', passport.authenticate('jwt', { session: false }), checkRoles(ROLES.OWNER), dishController.createDish.bind(dishController))
 
 export default router

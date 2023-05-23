@@ -1,7 +1,7 @@
 import boom from '@hapi/boom'
 import { RestaurantModel } from '../../domain/models/irestaurant-model'
 import { IRestaurantDTO } from '../dtos/restaurant-dto'
-import { IRestaurantRepository } from '../../domain/repositories/restaurant-repository'
+import { IRestaurantRepository } from '../../domain/repositories/irestaurant-repository'
 
 export class RestaurantService {
   private readonly restaurantRepository: IRestaurantRepository
@@ -22,6 +22,11 @@ export class RestaurantService {
 
   async getRestaurantByNit (nit: number): Promise<RestaurantModel | null> {
     const restaurant = await this.restaurantRepository.findByNit(nit)
+    return restaurant
+  }
+
+  async getRestaurantById (id: number): Promise<RestaurantModel | null> {
+    const restaurant = await this.restaurantRepository.findById(id)
     return restaurant
   }
 }

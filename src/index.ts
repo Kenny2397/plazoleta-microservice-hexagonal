@@ -21,7 +21,7 @@ const PORT = config.port ?? 3000
 app.listen(PORT, () => {
   sequelize.authenticate()
     .then(async () => {
-      await sequelize.sync({ force: false })
+      await sequelize.sync({ force: true })
       // await sequelize.drop()
       console.info('\n====================== 🚀 Server running  =======================')
       console.info(`INFO:     http://localhost:${PORT} (Press CTRL+C to quit)`)

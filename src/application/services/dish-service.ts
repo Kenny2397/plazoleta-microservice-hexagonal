@@ -1,16 +1,19 @@
-import { DishRepository } from '../../domain/repositories/dish-repository'
-import { Dish } from '../../domain/models/dish'
+import { IDishRepository } from '../../domain/repositories/idish-repository'
+import { DishModel } from '../../domain/models/idish-model'
 import { IDishDTO } from '../dtos/dish-dto'
+// import { ICategoryRepository } from '../../domain/repositories/icategory-repository'
 
-class DishService {
-  private readonly dishRepository: DishRepository
+export class DishService {
+  private readonly dishRepository: IDishRepository
+  // private readonly categoryRepository: ICategoryRepository
 
-  constructor (dishRepository: DishRepository) {
+  constructor (dishRepository: IDishRepository) {
     this.dishRepository = dishRepository
+    // this.categoryRepository = categoryRepository
   }
 
-  async createDish (dishDto: IDishDTO): Promise<Dish> {
-    const dish: Dish = {
+  async createDish (dishDto: IDishDTO): Promise<DishModel> {
+    const dish: IDishDTO = {
       ...dishDto,
       active: true,
       restaurantId: 1
@@ -20,5 +23,3 @@ class DishService {
     return createdDish
   }
 }
-
-export default DishService

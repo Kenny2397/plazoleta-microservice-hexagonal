@@ -1,18 +1,18 @@
-import Category from '../models/category-model'
+import { Category } from '../models/category-model'
 import { ICategoryDTO } from '../../../application/dtos/category-dto'
-import { Category as CategoryDomain } from '../../../domain/models/category'
-import { CategoryRepository } from '../../../domain/repositories/category-repository'
+import { CategoryModel } from '../../../domain/models/icategory-model'
+import { ICategoryRepository } from '../../../domain/repositories/icategory-repository'
 
-class SequelizeCategoryRepository implements CategoryRepository {
-  public async create (payload: CategoryDomain): Promise<CategoryDomain> {
+export class SequelizeCategoryRepository implements ICategoryRepository {
+  public async save (payload: CategoryModel): Promise<CategoryModel> {
     return await Category.create(payload)
   }
 
-  public async findAll (): Promise<CategoryDomain[]> {
+  public async findAll (): Promise<CategoryModel[]> {
     return await Category.findAll()
   }
 
-  public async findById (id: number): Promise<CategoryDomain | null> {
+  public async findById (id: number): Promise<CategoryModel | null> {
     return await Category.findByPk(id)
   }
 
@@ -24,5 +24,3 @@ class SequelizeCategoryRepository implements CategoryRepository {
     await Category.destroy({ where: { id } })
   }
 }
-
-export default SequelizeCategoryRepository
