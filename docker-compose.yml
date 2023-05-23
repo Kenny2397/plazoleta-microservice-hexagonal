@@ -1,0 +1,24 @@
+version: '1.0'
+
+services:
+  mysqluser:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_DATABASE=plazoletamicroservice
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=admin123
+      - MYSQL_ROOT_PASSWORD=admin123
+      - MYSQL_PORT=3306
+    ports:
+      - 33060:3306
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin123
+      - PMA_HOST=mysqluser
+    ports:
+      - 8080:80
