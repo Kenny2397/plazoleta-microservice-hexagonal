@@ -5,8 +5,8 @@ import dotenv from 'dotenv'
 import swaggerDocs from './infrastructure/web/utils/docs/swagger'
 import config from './config'
 
-import sequelize from './infrastructure/libs/sequelize'
-
+import { sequelize } from './infrastructure/libs/sequelize'
+// console.log('**', typeof sequelize.models.Category)
 const envPath = path.resolve(__dirname, '..', '.env')
 dotenv.config({ path: envPath })
 
@@ -21,7 +21,7 @@ const PORT = config.port ?? 3000
 app.listen(PORT, () => {
   sequelize.authenticate()
     .then(async () => {
-      await sequelize.sync({ force: true })
+      await sequelize.sync({ force: false })
       // await sequelize.drop()
       console.info('\n====================== 🚀 Server running  =======================')
       console.info(`INFO:     http://localhost:${PORT} (Press CTRL+C to quit)`)

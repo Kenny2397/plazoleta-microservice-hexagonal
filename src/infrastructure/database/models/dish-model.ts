@@ -76,19 +76,13 @@ export class Dish extends Model<DishEntity, DishCreationAttributes> {
   declare createdAt: Date
 
   static associate (models: any): void {
-    // this.belongsToMany(models.Category, {
-    //   through: 'Dish'
-    // })
-
-    this.hasMany(models.Dish, {
-      as: 'dishes',
-      foreignKey: {
-        name: 'dishId',
-        field: 'dish_id'
-      }
+    this.belongsTo(models.Category, {
+      as: 'category'
     })
 
-    // this.belongsTo(models.Order)
+    this.belongsTo(models.Restaurant, {
+      as: 'restaurant'
+    })
   }
 
   static config (sequelize: any): any {

@@ -1,13 +1,13 @@
 import { Router } from 'express'
-
-import { categoryController } from './../dependencies/container'
-// import { checkRoles } from '../../middlewares/auth-handler'
-// import { roles } from '../../../shared/constants/roles'
+import passport from '../../authentication/index'
+import { categoryController } from '../dependencies/container'
+import { checkRoles } from '../../middlewares/auth-handler'
+import { ROLES } from '../utils/shared/role-constants'
 const router = Router()
 
 /**
  * @openapi
- * /api/v1/categoriess/owner:
+ * /api/v1/categories:
  *    post:
  *      tags:
  *        - categories
@@ -17,23 +17,23 @@ const router = Router()
  *          content:
  *            application/json:
  *              schema:
- *                 $ref: "#/components/schemas/categories"
+ *                 $ref: "#/components/schemas/CreateCategory"
  *            application/xml:
  *              schema:
- *                $ref: '#/components/schemas/categories'
+ *                $ref: '#/components/schemas/CreateCategory'
  *            application/x-www-form-urlencoded:
  *              schema:
- *                $ref: '#/components/schemas/categories'
+ *                $ref: '#/components/schemas/CreateCategory'
  *      responses:
  *        '200':
  *          description: Successful operation
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/categories"
+ *                $ref: "#/components/schemas/CreateCategory"
  *            application/xml:
  *              schema:
- *                $ref: '#/components/schemas/categories'
+ *                $ref: '#/components/schemas/CreateCategory'
  *        '400':
  *          description: "Error: Bad Request"
  *        '401':
@@ -45,6 +45,6 @@ const router = Router()
  *      security:
  *        - bearerAuth: []
  */
-router.post('/', categoryController.createCategory.bind(categoryController))
+router.post('/', passport.authenticate('jwt', { session: false }), checkRoles(ROLES.OWNER), categoryController.createCategory.bind(categoryController))
 
 export default router

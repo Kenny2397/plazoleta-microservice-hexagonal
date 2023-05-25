@@ -62,10 +62,6 @@ export class Restaurant extends Model<RestaurantEntity, RestaurantCreationAttrib
   declare createdAt: Date
 
   static associate (models: any): void {
-    // this.belongsToMany(models.Category, {
-    //   through: 'Dish'
-    // })
-
     this.hasMany(models.Dish, {
       as: 'dishes',
       foreignKey: {

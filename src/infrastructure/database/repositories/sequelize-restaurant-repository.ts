@@ -7,8 +7,8 @@ export class SequelizeRestaurantRepository implements IRestaurantRepository {
     return await Restaurant.create(payload)
   }
 
-  public async findAll (): Promise<RestaurantModel[]> {
-    return await Restaurant.findAll()
+  public async findAll (options: any): Promise<RestaurantModel[]> {
+    return await Restaurant.findAll(options)
   }
 
   public async findById (id: number): Promise<RestaurantModel | null> {
@@ -17,6 +17,10 @@ export class SequelizeRestaurantRepository implements IRestaurantRepository {
 
   public async findByNit (nit: number): Promise<RestaurantModel | null> {
     return await Restaurant.findOne({ where: { nit } })
+  }
+
+  public async findByOwnerId (ownerId: number): Promise<RestaurantModel | null> {
+    return await Restaurant.findOne({ where: { ownerId } })
   }
 
   public async update (id: number, payload: RestaurantModel): Promise<any> {

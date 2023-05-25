@@ -45,6 +45,98 @@ const swaggerDefinition = {
       }
     },
     schemas: {
+      CreateCategory: {
+        type: 'object',
+        required: ['name', 'description'],
+        properties: {
+          name: {
+            type: 'string',
+            example: 'Hamburguesas'
+          },
+          description: {
+            type: 'string',
+            example: 'Hamburguesas de todo tipo'
+
+          }
+        }
+      },
+      CreateDish: {
+        type: 'object',
+        required: ['name', 'description', 'price', 'categoryId', 'restaurantId'],
+        properties: {
+          name: {
+            type: 'string',
+            example: 'Hamburguesa sencilla'
+          },
+          description: {
+            type: 'string',
+            example: 'Hamburguesa sencilla con queso'
+          },
+          price: {
+            type: 'integer($int64)',
+            example: 10
+          },
+          categoryId: {
+            type: 'integer($int64)',
+            example: 1
+          },
+          restaurantId: {
+            type: 'integer($int64)',
+            example: 1
+          }
+        }
+      },
+      GetCategory: {
+        type: 'object',
+        properties: {
+          name: {
+            type: 'string',
+            example: 'Hamburguesas'
+          },
+          description: {
+            type: 'string',
+            example: 'Hamburguesas de todo tipo'
+          }
+        }
+      },
+      GetDish: {
+        type: 'object',
+        properties: {
+          name: {
+            type: 'string',
+            example: 'Hamburguesa sencilla'
+          },
+          description: {
+            type: 'string',
+            example: 'Hamburguesa sencilla con queso'
+          },
+          price: {
+            type: 'integer($int64)',
+            example: 10
+          },
+          categoryId: {
+            type: 'array',
+            items: { $ref: '#/components/schemas/GetCategory' }
+          },
+          restaurantId: {
+            type: 'array',
+            items: { $ref: '#/components/schemas/GetRestaurant' }
+          }
+        }
+      },
+      UpdateDish: {
+        type: 'object',
+        properties: {
+          price: {
+            type: 'integer($int64)',
+            example: 10
+          },
+          description: {
+            type: 'string',
+            example: 'Hamburguesa sencilla con queso'
+          }
+        }
+      },
       CreateRestaurant: {
         type: 'object',
         required: ['name', 'nit', 'address', 'phone', 'urlLogo', 'ownerId'],
@@ -88,12 +180,21 @@ const swaggerDefinition = {
           }
         }
       },
+      AllRestaurants: {
+        type: 'object',
+        properties: {
+          Restaurants: {
+            type: 'array',
+            items: { $ref: '#/components/schemas/GetRestaurant' }
+          }
+        }
+      },
       GetAllDishesInRestaurants: {
         type: 'object',
         properties: {
-          Category: {
+          Dishes: {
             type: 'array',
-            items: { $ref: '#/components/schemas/Dish' }
+            items: { $ref: '#/components/schemas/GetDish' }
           }
         }
       },

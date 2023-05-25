@@ -10,3 +10,7 @@ export interface IDishDTO {
   restaurantId?: number
   createdAt?: Date
 }
+export interface IUpdateDishDTO {
+  price: number
+  description: string
+}

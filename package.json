@@ -18,7 +18,8 @@
     "migrations:revert": "sequelize-cli db:migrate:undo",
     "migrations:delete": "sequelize-cli db:migrate:undo:all",
     "seeders:generate": "sequelize-cli seed:generate --name",
-    "seeders:run": "sequelize-cli db:seed:all"
+    "seeders:run": "sequelize-cli db:seed:all",
+    "seeders:ts": "ts-node-dev src/seeders/seeders.ts"
   },
   "keywords": [],
   "author": "",
